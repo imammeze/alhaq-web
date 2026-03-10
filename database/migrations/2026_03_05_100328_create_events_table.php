@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('event_category_id')->constrained()->cascadeOnDelete(); 
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('thumbnail')->nullable();
             $table->longText('description');
             $table->date('event_date');
             $table->time('start_time');
