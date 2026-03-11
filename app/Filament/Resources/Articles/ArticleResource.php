@@ -55,8 +55,15 @@ class ArticleResource extends Resource
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
-                Toggle::make('is_published')
-                    ->label('Publish'),
+                    Toggle::make('is_published')
+                        ->label('Publish')
+                        ->default(true),
+                    Toggle::make('is_archived')
+                        ->label('Archived')
+                        ->default(false),
+                    Toggle::make('is_pinned')
+                        ->label('Pinned')
+                        ->default(false),
             ]);
     }
 
@@ -64,11 +71,13 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail'),
-                TextColumn::make('title')->searchable(),
-                TextColumn::make('category.name'),
-                IconColumn::make('is_published')->boolean(),
-                TextColumn::make('created_at')->dateTime(),
+                ImageColumn::make('thumbnail')->label('Gambar')->disk('public'),
+                TextColumn::make('title')->searchable()->label('Judul'),
+                TextColumn::make('category.name')->label('Kategori'),
+                IconColumn::make('is_published')->boolean()->label('Publish'),
+                IconColumn::make('is_archived')->boolean()->label('Archived'),
+                IconColumn::make('is_pinned')->boolean()->label('Pinned'),
+                TextColumn::make('created_at')->dateTime()->label('Kapan Dibuat'),
             ])
             ->filters([
                 //
